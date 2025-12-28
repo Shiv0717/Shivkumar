@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Lenis from "@studio-freight/lenis";
+import PortfolioDashboard from "../components/Hero";
 
 function MainLayout() {
   useEffect(() => {
@@ -30,8 +31,9 @@ function MainLayout() {
   return (
     <div>
       <Navbar />
-      <main >
-        <Outlet />
+      <PortfolioDashboard />
+      <main className="" >
+        <Outlet  />
       </main>
       <Footer />
     </div>

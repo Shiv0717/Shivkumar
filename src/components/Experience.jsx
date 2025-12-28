@@ -1,319 +1,165 @@
-import React, { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import React from "react";
+import {
+  Briefcase,
+  Building,
+  MapPin,
+  Calendar,
+  ChevronRight,
+} from "lucide-react";
 
 const Experience = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, threshold: 0.2 });
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-
   const experiences = [
     {
-      company: "Tech Innovations Inc.",
-      position: "Senior Full Stack Developer",
-      period: "2023 - Present",
-      description: [
-        "Lead development of scalable web applications serving 1M+ users",
-        "Architected microservices reducing latency by 40%",
-        "Mentored junior developers and set coding standards",
+      company: "Krishna Software Solutions",
+      role: "Full Stack Developer",
+      location: "Bhilai, Chhattisgarh",
+      period: "Sep 2025 – Present",
+      type: "current",
+      achievements: [
+        "Building scalable web applications using MERN stack",
+        "Implementing complex UI components with modern frameworks",
+        "Developing RESTful APIs and integrating third-party services",
+        "Collaborating with cross-functional teams on client projects"
       ],
-      technologies: ["React", "Node.js", "AWS", "TypeScript"],
+      tech: ["React.js", "Node.js", "TypeScript", "MongoDB", "AWS", "Tailwind CSS"],
     },
     {
-      company: "Digital Solutions LLC",
-      position: "Full Stack Developer",
-      period: "2021 - 2023",
-      description: [
-        "Developed and maintained 15+ client projects",
-        "Built REST APIs handling 50K+ daily requests",
-        "Improved performance by 30% through optimization",
+      company: "Ayodhya Webosoft",
+      role: "Frontend Developer",
+      location: "Bhilai, Chhattisgarh",
+      period: "Mar 2023 – Sep 2025",
+      type: "previous",
+      achievements: [
+        "Developed responsive web applications with React.js & Tailwind CSS",
+        "Integrated REST APIs for dynamic content management",
+        "Optimized application performance and loading times",
+        "Implemented reusable component libraries"
       ],
-      technologies: ["Vue.js", "Express", "MongoDB"],
+      tech: ["React.js", "Tailwind CSS", "REST APIs", "JavaScript", "Git"],
     },
-    {
-      company: "StartUp Ventures",
-      position: "Frontend Developer",
-      period: "2020 - 2021",
-      description: [
-        "Built responsive web applications from concept to launch",
-        "Collaborated with designers for smooth UI/UX",
-        "Maintained internal UI component library",
-      ],
-      technologies: ["React", "Redux", "Sass"],
-    },
+    
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, x: -30 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 20
-      }
-    }
-  };
-
-  const expandAll = () => {
-    setActiveIndex(0);
-  };
-
-  const collapseAll = () => {
-    setActiveIndex(null);
-  };
-
   return (
-    <section id="work" className="relative w-full py-20 overflow-hidden">
-      {/* Same Background as Education */}
-      <div className="absolute inset-0 bg-black">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-500/5 rounded-full blur-2xl"></div>
-        
-        {/* Same Animated Grid Pattern */}
-        <div className="absolute inset-0 opacity-[0.02] bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
-      </div>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="space-y-8">
+        {/* Header */}
+        <div className="flex items-center gap-4">
+          <div className="p-3 bg-gray-900 rounded-lg">
+            <Briefcase size={24} className="text-white" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">
+              Work Experience
+            </h2>
+            <p className="text-gray-600 mt-1">Professional journey timeline</p>
+          </div>
+        </div>
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Same Header as Education */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center mb-20"
-        >
-          <motion.div
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 mb-8"
-          >
-            <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse"></div>
-            <span 
-              className="text-sm text-white/80 tracking-widest uppercase"
-              style={{ fontFamily: "'Urbanist', sans-serif" }}
-            >
-              Professional Journey
-            </span>
-          </motion.div>
-
-          <motion.h2
-            className="text-5xl md:text-6xl lg:text-7xl text-white mb-6"
-            style={{ fontFamily: "'Urbanist', sans-serif" }}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            Work{" "}
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-              Experience
-            </span>
-          </motion.h2>
-          
-          <motion.div
-            initial={{ width: 0 }}
-            whileInView={{ width: "120px" }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="w-32 h-1 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 mx-auto rounded-full mb-6"
-          ></motion.div>
-
-          <motion.p
-            className="text-xl text-gray-300 italic max-w-3xl mx-auto"
-            style={{ fontFamily: "'Caveat', cursive" }}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-          >
-            "Building digital solutions that make a difference"
-          </motion.p>
-        </motion.div>
-
-        {/* Timeline - Original Layout with Dark Colors */}
-        <motion.div
-          ref={ref}
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="relative max-w-7xl mx-auto"
-        >
+        {/* Timeline */}
+        <div className="relative">
           {/* Vertical Line */}
-          <motion.div
-            className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-400/30 via-purple-400/30 to-cyan-400/30"
-            initial={{ scaleY: 0 }}
-            animate={{ scaleY: 1 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-          />
-
-          <div className="space-y-6">
+          <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200 ml-4"></div>
+          
+          <div className="space-y-8">
             {experiences.map((exp, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className="flex items-start gap-8 group"
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-              >
-                {/* Timeline Dot with Hover Effect */}
-                <div className="relative shrink-0">
-                  <motion.div
-                    className={`w-5 h-5 rounded-full border-4 border-black z-10 ${
-                      activeIndex === index 
-                        ? 'bg-gradient-to-r from-blue-400 to-purple-400 scale-110' 
-                        : hoveredIndex === index
-                        ? 'bg-gradient-to-r from-blue-400 to-purple-400 scale-105'
-                        : 'bg-gray-600'
-                    }`}
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.5 + index * 0.2 }}
-                    whileHover={{ scale: 1.3 }}
-                  />
-                  
-                  {/* Connection Line on Hover */}
-                  {hoveredIndex === index && (
-                    <motion.div
-                      className="absolute top-5 left-1/2 w-0.5 h-8 bg-gradient-to-b from-blue-400 to-purple-400 -translate-x-1/2"
-                      initial={{ height: 0 }}
-                      animate={{ height: 32 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  )}
-                </div>
-
+              <div key={index} className="relative">
+                {/* Timeline Dot */}
+                <div className={`absolute left-6 w-3 h-3 rounded-full border-2 border-white z-10 ml-3.5 ${
+                  exp.type === "current" ? "bg-gray-900" : "bg-gray-400"
+                }`}></div>
+                
                 {/* Content Card */}
-                <motion.div
-                  className={`flex-1 border-2 rounded-xl p-6 cursor-pointer transition-all duration-300 backdrop-blur-sm ${
-                    activeIndex === index 
-                      ? 'border-blue-400/50 bg-white/10 shadow-lg' 
-                      : hoveredIndex === index
-                      ? 'border-purple-400/30 bg-white/5 shadow-md'
-                      : 'border-white/10 bg-white/5'
-                  }`}
-                  whileHover={{ 
-                    y: -4,
-                    scale: 1.01,
-                    transition: { type: "spring", stiffness: 400 }
-                  }}
-                  onClick={() => setActiveIndex(activeIndex === index ? null : index)}
-                >
-                  {/* Header with Toggle Button */}
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex-1">
-                      <motion.h3 
-                        className={`text-2xl font-bold mb-2 ${
-                          activeIndex === index ? 'text-white' : 'text-gray-200'
-                        }`}
-                        style={{ fontFamily: "'Urbanist', sans-serif" }}
-                      >
-                        {exp.position}
-                      </motion.h3>
-                      <motion.p 
-                        className="text-lg font-semibold text-blue-400 mb-1"
-                        style={{ fontFamily: "'Urbanist', sans-serif" }}
-                      >
-                        {exp.company}
-                      </motion.p>
-                      <motion.span 
-                        className="text-gray-400 text-sm"
-                        style={{ fontFamily: "'Urbanist', sans-serif" }}
-                      >
-                        {exp.period}
-                      </motion.span>
+                <div className={`ml-12 bg-white border border-gray-200 rounded-lg hover:border-gray-300 transition-colors ${
+                  exp.type === "current" ? "border-gray-900" : ""
+                }`}>
+                  {/* Card Header */}
+                  <div className="p-6 border-b border-gray-200">
+                    <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                      <div>
+                        <div className="flex items-center gap-3 mb-2">
+                          <h3 className="text-xl font-bold text-gray-900">
+                            {exp.role}
+                          </h3>
+                          {exp.type === "current" && (
+                            <span className="px-2 py-1 bg-gray-900 text-white text-xs font-medium rounded">
+                              Current
+                            </span>
+                          )}
+                        </div>
+                        
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-3 text-gray-700">
+                            <Building size={16} className="text-gray-600" />
+                            <span className="font-medium">{exp.company}</span>
+                          </div>
+                          <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+                            <div className="flex items-center gap-2">
+                              <MapPin size={14} />
+                              <span>{exp.location}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Calendar size={14} />
+                              <span>{exp.period}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    
-                    {/* Toggle Button */}
-                    <motion.button
-                      className={`w-8 h-8 rounded-full flex items-center justify-center border ${
-                        activeIndex === index 
-                          ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white border-transparent' 
-                          : 'bg-white/10 text-gray-400 border-white/20'
-                      }`}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      <motion.span
-                        animate={{ rotate: activeIndex === index ? 45 : 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="text-lg font-bold"
-                      >
-                        +
-                      </motion.span>
-                    </motion.button>
                   </div>
 
-                  {/* Expandable Content */}
-                  <motion.div
-                    initial={false}
-                    animate={{ 
-                      height: activeIndex === index ? "auto" : 0,
-                      opacity: activeIndex === index ? 1 : 0
-                    }}
-                    transition={{ duration: 0.4, ease: "easeInOut" }}
-                    className="overflow-hidden"
-                  >
-                    <motion.div className="pt-4 border-t border-white/10">
-                      <motion.ul className="space-y-3 mb-6">
-                        {exp.description.map((line, i) => (
-                          <motion.li
-                            key={i}
-                            className="text-gray-300 flex items-start"
-                            style={{ fontFamily: "'Urbanist', sans-serif" }}
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.1 + i * 0.1 }}
-                          >
-                            <motion.span 
-                              className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full mt-2 mr-3 shrink-0"
-                              whileHover={{ scale: 1.5 }}
-                            />
-                            {line}
-                          </motion.li>
-                        ))}
-                      </motion.ul>
+                  {/* Achievements */}
+                  <div className="p-6">
+                    <h4 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wider">
+                      Key Contributions
+                    </h4>
+                    <ul className="space-y-3">
+                      {exp.achievements.map((achievement, i) => (
+                        <li key={i} className="flex items-start gap-3">
+                          <ChevronRight size={16} className="text-gray-800 mt-1 flex-shrink-0" />
+                          <span className="text-gray-700">{achievement}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-                      {/* Technologies */}
-                      <motion.div 
-                        className="flex flex-wrap gap-2"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.4 }}
-                      >
-                        {exp.technologies.map((tech, i) => (
-                          <motion.span
-                            key={tech}
-                            className="px-3 py-2 bg-white/5 rounded-lg text-sm font-medium text-gray-300 border border-white/10"
-                            style={{ fontFamily: "'Urbanist', sans-serif" }}
-                            whileHover={{ 
-                              scale: 1.05,
-                              y: -2,
-                              backgroundColor: "rgba(59, 130, 246, 0.1)"
-                            }}
-                          >
-                            {tech}
-                          </motion.span>
-                        ))}
-                      </motion.div>
-                    </motion.div>
-                  </motion.div>
-                </motion.div>
-              </motion.div>
+                  {/* Tech Stack */}
+                  <div className="px-6 pb-6">
+                    <h4 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wider">
+                      Technologies Used
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {exp.tech.map((tech, i) => (
+                        <span
+                          key={i}
+                          className="px-3 py-1.5 bg-gray-50 border border-gray-200 text-gray-800 text-sm rounded-md"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
+
+        {/* Timeline Legend */}
+        <div className="mt-12 pt-6 border-t border-gray-200">
+          <div className="flex flex-wrap gap-6 text-sm text-gray-600">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-gray-900"></div>
+              <span>Current Position</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-gray-400"></div>
+              <span>Previous Experience</span>
+            </div>
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
 

@@ -133,7 +133,7 @@ const About = () => {
               <div className="relative w-64 h-80 md:w-80 md:h-96 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-2xl border border-white/10 backdrop-blur-sm p-4 shadow-2xl">
                 <div className="w-full h-full rounded-xl overflow-hidden border border-white/10">
                   <img 
-                    src="/public/logo/1000051881 (1) (1).jpg" 
+                    src="/logo/1000051881 (1) (1).jpg" 
                     alt="Priyansha Tiwari"
                     className="w-full h-full object-cover"
                   />

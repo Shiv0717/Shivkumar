@@ -1,309 +1,138 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Briefcase, Globe, CpuIcon, GraduationCap, Terminal, Mail, Linkedin, Menu, X } from 'lucide-react';
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
-  const menuItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'Work', href: '#work' },
-    { name: 'About', href: '#about' },
-    { name: 'Contact', href: '#contact' },
+  // Extract active section from pathname
+  const activeSection = location.pathname.split('/')[1] || '';
+
+  const sections = [
+    { id: 'experience', label: 'Experience', icon: Briefcase, path: '/experience' },
+    { id: 'projects', label: 'Projects', icon: Globe, path: '/projects' },
+    { id: 'skills', label: 'Skills', icon: CpuIcon, path: '/skills' },
+    { id: 'education', label: 'Education', icon: GraduationCap, path: '/education' },
   ];
 
-  const fullScreenMenuVariants = {
-    closed: {
-      opacity: 0,
-      scale: 0.95,
-      transition: {
-        duration: 0.4,
-        ease: [0.4, 0, 0.2, 1]
-      }
-    },
-    open: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: [0.4, 0, 0.2, 1]
-      }
-    }
+  // Close mobile menu when clicking a link
+  const handleNavClick = () => {
+    setIsMobileMenuOpen(false);
   };
-
-  const itemVariants = {
-    closed: { 
-      opacity: 0, 
-      y: 25,
-    },
-    open: (index) => ({ 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        delay: index * 0.12,
-        duration: 0.5,
-        ease: [0.4, 0, 0.2, 1]
-      }
-    })
-  };
-
-  // Prevent body scroll when menu is open
-  React.useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isMenuOpen]);
 
   return (
-    <nav className="fixed top-4 left-0 right-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Left Side - Image + Name and Role */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ 
-              duration: 0.6,
-              ease: [0.4, 0, 0.2, 1]
-            }}
-            className="flex items-center gap-3 shrink-0 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 border border-white/20 shadow-lg"
-            whileHover={{
-              scale: 1.02,
-              backgroundColor: "rgba(255,255,255,0.15)",
-              transition: { duration: 0.3 }
-            }}
-          >
-            {/* Profile Image */}
-            <motion.div 
-              className="w-10 h-10 overflow-hidden rounded-full border-2 border-white/30 shadow-md"
-              whileHover={{ 
-                scale: 1.1,
-                rotate: 5,
-                borderColor: "rgba(255,255,255,0.6)"
-              }}
-              transition={{ duration: 0.3 }}
+    <div>
+      <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white/90 backdrop-blur-xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+          <div className="flex items-center justify-between">
+            {/* Logo/Home Link */}
+            <Link 
+              to="/" 
+              className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+              onClick={handleNavClick}
             >
-              <img
-                src="/logo/1000051881 (1) (1).jpg"
-                alt="Priyansha Tiwari"
-                className="w-full h-full object-cover"
-              />
-            </motion.div>
-
-            {/* Name and Role */}
-            <div className="flex flex-col">
-              <motion.a 
-                href="#home"
-                className="text-[10px] font-bold text-white tracking-tight hover:text-gray-200 transition-colors duration-300"
-                whileHover={{ x: 2 }}
-              >
-                Priyansha Tiwari
-              </motion.a>
-              <motion.span 
-                className="text-[10px] text-gray-400 font-medium rounded-full  inline-block w-fit"
-                transition={{ duration: 0.3 }}
-                style={{ fontFamily: "'Caveat', cursive" }}
-              >
-                Software Developer
-              </motion.span>
-            </div>
-          </motion.div>
-
-          {/* Right Side - Menu Icon */}
-          <motion.div 
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ 
-              duration: 0.6,
-              ease: [0.4, 0, 0.2, 1]
-            }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 hover:border-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all duration-300 shadow-lg"
-            >
-              <motion.div
-                animate={isMenuOpen ? "open" : "closed"}
-                className="w-6 h-6 flex flex-col justify-center space-y-1.5"
-              >
-                <motion.span
-                  className="w-6 h-0.5 bg-white block rounded-full"
-                  variants={{
-                    closed: { rotate: 0, y: 0 },
-                    open: { rotate: 45, y: 8 }
-                  }}
-                  transition={{ duration: 0.4 }}
-                />
-                <motion.span
-                  className="w-6 h-0.5 bg-white block rounded-full"
-                  variants={{
-                    closed: { opacity: 1, scale: 1 },
-                    open: { opacity: 0, scale: 0 }
-                  }}
-                  transition={{ duration: 0.3 }}
-                />
-                <motion.span
-                  className="w-6 h-0.5 bg-white block rounded-full"
-                  variants={{
-                    closed: { rotate: 0, y: 0 },
-                    open: { rotate: -45, y: -8 }
-                  }}
-                  transition={{ duration: 0.4 }}
-                />
-              </motion.div>
-            </button>
-          </motion.div>
-        </div>
-
-        {/* Full Screen Menu Overlay */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <>
-              {/* Backdrop */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40"
-                onClick={() => setIsMenuOpen(false)}
-              />
-              
-              {/* Menu Panel */}
-              <motion.div
-                variants={fullScreenMenuVariants}
-                initial="closed"
-                animate="open"
-                exit="closed"
-                className="fixed inset-0 z-50 flex items-center justify-center"
-              >
-                {/* Close Button - Fixed position */}
-                <button
-                  onClick={() => setIsMenuOpen(false)}
-                  className="absolute top-8 right-8 z-60 inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 hover:border-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all duration-300 shadow-lg"
-                  aria-label="Close Menu"
+              <div className="p-2 bg-gray-900 rounded-lg">
+                <Terminal size={20} className="text-white" />
+              </div>
+              <span className="text-lg font-semibold text-gray-900">SK</span>
+            </Link>
+            
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-1 bg-gray-100 p-1 rounded-full">
+              {sections.map((section) => (
+                <Link
+                  key={section.id}
+                  to={section.path}
+                  className={`flex items-center gap-2 px-4 py-2 text-sm rounded-full transition-all duration-300 ${
+                    activeSection === section.id 
+                      ? 'bg-gray-900 text-white shadow-md' 
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
+                  }`}
+                  onClick={() => setActiveSection(section.id)}
                 >
-                  <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="text-2xl font-light"
-                  >
-                    &times;
-                  </motion.div>
-                </button>
-                
-                {/* Menu Content */}
-                <div className="relative z-50 flex flex-col items-center justify-center h-full px-6 py-12 w-full max-w-4xl mx-auto">
-                  <motion.div 
-                    className="space-y-6 text-center w-full"
-                    variants={itemVariants}
-                  >
-                    {menuItems.map((item, index) => (
-                      <motion.div
-                        key={item.name}
-                        className="relative group"
-                        variants={itemVariants}
-                        custom={index}
-                      >
-                        <motion.a
-                          href={item.href}
-                          onClick={() => setIsMenuOpen(false)}
-                          className="block text-4xl lg:text-6xl font-bold text-white hover:text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-purple-200 py-4 transition-all duration-500 cursor-pointer"
-                          whileHover={{ 
-                            scale: 1.08,
-                            y: -5
-                          }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          {item.name}
-                          <motion.div
-                            className="absolute bottom-2 left-1/2 w-0 h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full group-hover:w-4/5 group-hover:left-1/10 transition-all duration-500"
-                            whileHover={{ width: "80%", left: "10%" }}
-                          />
-                        </motion.a>
-                      </motion.div>
-                    ))}
-                    
-                    {/* Contact Info */}
-                    <motion.div
-                      variants={itemVariants}
-                      custom={menuItems.length}
-                      className="mt-16 pt-8 border-t border-white/20"
-                    >
-                      <motion.h3 
-                        className="text-2xl font-bold text-white mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
-                        whileHover={{ scale: 1.05 }}
-                      >
-                        Get in Touch
-                      </motion.h3>
-                      
-                      <div className="space-y-3 text-lg">
-                        <motion.p 
-                          className="text-gray-200 hover:text-white transition-colors duration-300 cursor-pointer"
-                          whileHover={{ x: 10 }}
-                          onClick={() => {
-                            navigator.clipboard.writeText('priyansha@email.com');
-                            setIsMenuOpen(false);
-                          }}
-                        >
-                          📧 priyansha@email.com
-                        </motion.p>
-                        <motion.p 
-                          className="text-gray-200 hover:text-white transition-colors duration-300 cursor-pointer"
-                          whileHover={{ x: 10 }}
-                          onClick={() => {
-                            navigator.clipboard.writeText('+1 (555) 123-4567');
-                            setIsMenuOpen(false);
-                          }}
-                        >
-                          📱 +1 (555) 123-4567
-                        </motion.p>
-                      </div>
+                  <section.icon size={16} />
+                  {section.label}
+                </Link>
+              ))}
+            </div>
+            
+            {/* Desktop Contact/Links */}
+            <div className="hidden sm:flex items-center gap-3">
+              <div className="flex items-center gap-2">
+                <a 
+                  href="mailto:shivaku5544@gmail.com"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-gray-900 text-white text-sm rounded-lg hover:bg-gray-800 transition-colors"
+                >
+                  <Mail size={16} />
+                  Contact
+                </a>
+                <a 
+                  href="https://linkedin.com/in/U Shiv Kumar" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors border border-gray-200"
+                >
+                  <Linkedin size={18} className="text-gray-700" />
+                </a>
+              </div>
+            </div>
 
-                      {/* Social Links */}
-                      <motion.div
-                        className="flex space-x-8 justify-center mt-8"
-                        variants={itemVariants}
-                        custom={menuItems.length + 1}
-                      >
-                        {[
-                          { name: 'Twitter', icon: '🐦' },
-                          { name: 'LinkedIn', icon: '💼' },
-                          { name: 'GitHub', icon: '🐙' },
-                          { name: 'Dribbble', icon: '🎨' }
-                        ].map((social) => (
-                          <motion.a
-                            key={social.name}
-                            href={`#${social.name.toLowerCase()}`}
-                            whileHover={{ 
-                              scale: 1.3, 
-                              y: -3,
-                            }}
-                            whileTap={{ scale: 0.9 }}
-                            className="text-gray-300 hover:text-white text-lg font-medium transition-colors duration-300 flex flex-col items-center space-y-2"
-                            onClick={() => setIsMenuOpen(false)}
-                          >
-                            <span className="text-2xl">{social.icon}</span>
-                            <span>{social.name}</span>
-                          </motion.a>
-                        ))}
-                      </motion.div>
-                    </motion.div>
-                  </motion.div>
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden p-2 rounded-lg hover:bg-gray-100"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+
+          {/* Mobile Menu */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden mt-3 pb-3 border-t border-gray-200 pt-3">
+              <div className="flex flex-col space-y-2">
+                {sections.map((section) => (
+                  <Link
+                    key={section.id}
+                    to={section.path}
+                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 ${
+                      activeSection === section.id 
+                        ? 'bg-gray-900 text-white' 
+                        : 'text-gray-600 hover:bg-gray-100'
+                    }`}
+                    onClick={handleNavClick}
+                  >
+                    <section.icon size={18} />
+                    <span className="font-medium">{section.label}</span>
+                  </Link>
+                ))}
+                
+                <div className="flex items-center gap-2 pt-2">
+                  <a 
+                    href="mailto:shivaku5544@gmail.com"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-gray-900 text-white text-sm rounded-lg hover:bg-gray-800 transition-colors"
+                    onClick={handleNavClick}
+                  >
+                    <Mail size={16} />
+                    Contact
+                  </a>
+                  <a 
+                    href="https://linkedin.com/in/U Shiv Kumar" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 hover:bg-gray-100 rounded-lg transition-colors border border-gray-200"
+                    onClick={handleNavClick}
+                  >
+                    <Linkedin size={20} className="text-gray-700" />
+                  </a>
                 </div>
-              </motion.div>
-            </>
+              </div>
+            </div>
           )}
-        </AnimatePresence>
-      </div>
-    </nav>
+        </div>
+      </nav>
+    </div>
   );
-};
+}
 
 export default Navbar;
